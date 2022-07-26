@@ -12,7 +12,6 @@ const friend2 = new User('friend2', new Date(2021, 1, 2));
 const billy = new Author('Billy', new Date(1944, 1, 1));
 const jonny = new Author('Jonny', new Date(1944, 1, 1));
 
-
 const book1984 = new Book('1984', new Date(1949, 5, 8), user, [billy, jonny]);
 const smth = new Book('Smth book', new Date(2000, 5, 8), user2, [billy]);
 const lola = new Book('lola', new Date(2000, 5, 8), friend, [billy]);
