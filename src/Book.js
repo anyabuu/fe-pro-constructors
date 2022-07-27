@@ -20,28 +20,26 @@ export function Book(title, year, publicationBy, authors) {
   this.authors = authors;
   this.likedUsers = [];
 
-  authors.map(function (item) {
+  authors.forEach((item) => {
     item.books.push(this);
-  }, this);
+  });
 
   publicationBy.myBooks.push(this);
 
   Object.defineProperty(this, 'suggestedBooks', {
     get() {
-      let result = authors.reduce(function (acc, curr) {
-        acc.push(
-          curr.books.map(function (item) {
-            return item.title;
-          })
-        );
+      let result = authors.reduce(function (acc, author) {
+        author.books.forEach(function ({ title }) {
+          acc.push(title);
+        });
 
         return acc;
       }, []);
 
-      let set = new Set(result.flat());
+      let set = new Set(result);
 
-      if (set.has(this.title)) {
-        set.delete(this.title);
+      if (set.has(title)) {
+        set.delete(title);
       }
 
       return [...set].join(', ');
@@ -50,21 +48,17 @@ export function Book(title, year, publicationBy, authors) {
 
   Object.defineProperty(this, 'suggestedPublicators', {
     get() {
-      let result = authors.reduce(function (acc, curr) {
-        console.log(curr.name);
-
-        acc.push(
-          curr.books.map(function (item) {
-            if (item.publicationBy.name !== curr.name) {
-              return item.publicationBy.name;
-            }
-          })
-        );
+      let result = authors.reduce(function (acc, author) {
+        author.books.forEach(function (book) {
+          if (book.publicationBy.name !== publicationBy.name) {
+            acc.push(book.publicationBy.name);
+          }
+        });
 
         return acc;
       }, []);
 
-      return [...new Set(result.flat())].join(', ');
+      return [...new Set(result)].join(', ');
     },
   });
 }

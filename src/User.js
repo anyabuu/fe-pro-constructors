@@ -54,8 +54,8 @@ export function User(name, date) {
 
   Object.defineProperty(this, 'friendsNames', {
     get() {
-      let res = this.friends.map(function (item) {
-        return item.name;
+      let res = this.friends.map(function ({ name }) {
+        return name;
       });
 
       return res.join(', ');
@@ -64,8 +64,8 @@ export function User(name, date) {
 
   Object.defineProperty(this, 'likedBooks', {
     get() {
-      let res = this.likes.map(function (item) {
-        return item.title;
+      let res = this.likes.map(function ({ title }) {
+        return title;
       });
 
       return res.join(', ');
@@ -78,7 +78,6 @@ export function User(name, date) {
         return item.title;
       });
 
-      console.log(res);
       return res.join(', ');
     },
   });
